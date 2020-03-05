@@ -8,7 +8,6 @@ export class $Request<T> {
   ) {}
 
   public parseBody = () => {
-    console.log('here');
     const { headers, body } = this.init;
     if (
       !body ||
