@@ -80,7 +80,9 @@ If `shouldThrow` set true in RequestInit - request will be rejected if response.
 
 ```typescript
 request('https://example.com/api/method', {
-  isOk: ({ status }) => status < 400 || status === 429,
+  shouldThrow: true,
+}).catch(response => {
+  console.log(response.status);
 });
 ```
 
