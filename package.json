@@ -1,5 +1,8 @@
 {
   "name": "@anissoft/request",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "1.0.0",
   "description": "Wrap on top of the standart fetch",
   "main": "dist/index.js",
