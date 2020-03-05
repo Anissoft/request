@@ -1,0 +1,13 @@
+.eslintignore
+.eslintrc.js
+.gitignore
+.prettierrc.js
+rollup.config.ts
+tsconfig.*
+.vscode
+.cache
+.travis.yml
+./src
+*.ts
+*.tsx
+sandbox.*
