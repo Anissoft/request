@@ -7,8 +7,6 @@
 
 > Wrap on top of the standart fetch API with few tweaks, which make may life easier (abort request, polyfills, OKdetermination etc)
 
-### 🏠 [Homepage](https://github.com/Anissoft/request#readme)
-
 ## Usage
 
 ```sh
