@@ -22,4 +22,6 @@ export async function request<T = any>(
   return responseExtra.flush();
 }
 
+export * from './types';
+
 export default request;
