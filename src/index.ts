@@ -2,7 +2,7 @@ import { InitializeOptions, ResponseExtra, RequestInitExtra } from './types';
 import { $Request } from './request';
 import { $Response } from './response';
 
-let __sendRequest = window.fetch;
+let __sendRequest = (window || global).fetch;
 
 export const initialize = (original: typeof fetch = window.fetch, options?: InitializeOptions) => {
   __sendRequest = original;
