@@ -11,7 +11,7 @@ export const initialize = (original: typeof fetch = window.fetch, options?: Init
 export async function request<T = any, K = any>(
   input: RequestInfo,
   init: RequestInitExtra<T, K> = {},
-): Promise<ResponseExtra<T, K>> {
+): Promise<ResponseExtra<T> | K> {
   const requsetExtra = new $Request(input, init, __sendRequest);
   await requsetExtra.parseBody();
 

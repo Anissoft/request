@@ -32,11 +32,20 @@ export class $Request<T, K> {
       } else {
         hasContentType = !!headers['Content-Type'] || !!headers['content-type'];
       }
-    }
-    if (!hasContentType) {
+    } else {
       this.init.headers = {
         'Content-type': 'application/json',
       };
+      return;
+    }
+    if (!hasContentType) {
+      if (headers instanceof Headers) {
+        headers.set('Content-Type', 'application/json');
+      } else if (Array.isArray(headers)) {
+        headers.push(['Content-Type', 'application/json']);
+      } else {
+        headers['Content-type'] = 'application/json';
+      }
     }
   };
 

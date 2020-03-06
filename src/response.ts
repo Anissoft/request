@@ -1,10 +1,10 @@
 import { ResponseExtra, RequestInitExtra } from './types';
 
 export class $Response<T, K> {
-  private candidate: ResponseExtra<T, K>;
+  private candidate: ResponseExtra<T>;
 
   constructor(private response: Response, private init: RequestInitExtra<T, K>) {
-    this.candidate = new Response(undefined, this.response) as ResponseExtra<T, K>;
+    this.candidate = new Response(undefined, this.response) as ResponseExtra<T>;
   }
 
   public parseBody = async () => {
@@ -24,7 +24,7 @@ export class $Response<T, K> {
       text() {
         return text;
       },
-    }) as ResponseExtra<T, K>;
+    }) as ResponseExtra<T>;
   };
 
   public defineOk = () => {

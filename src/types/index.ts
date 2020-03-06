@@ -1,6 +1,6 @@
 export type InitializeOptions = {};
 
-export type ResponseExtra<T, K> = {
+export type ResponseExtra<T> = {
   json(): T | undefined;
   text(): string;
 } & Response;
@@ -14,10 +14,10 @@ export type RequestInitExtra<T, K> = {
     | ReadableStream<Uint8Array>
     | string
     | Record<string | number, any>;
-  isOk?: (response: ResponseExtra<T, K>) => boolean;
+  isOk?: (response: ResponseExtra<T>) => boolean;
   shouldThrow?: boolean;
   actions?: Record<
     'default' | 'ok' | string | number,
-    (response: ResponseExtra<T, K>) => Promise<any>
+    (response: ResponseExtra<T>) => Promise<K> | K
   >;
 } & Omit<RequestInit, 'body'>;
