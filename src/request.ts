@@ -11,6 +11,8 @@ export class $Request<T, K> {
     const { headers, body } = this.init;
     if (
       !body ||
+      typeof body === 'string' ||
+      body instanceof String ||
       body instanceof Blob ||
       body instanceof FormData ||
       body instanceof URLSearchParams ||

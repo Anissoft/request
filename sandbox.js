@@ -2,7 +2,7 @@ import { initialize, request } from './dist';
 
 window.$ = { initialize, request };
 
-initialize();
+initialize(fetch);
 
 $.request('/', {
   isOk(res) {
