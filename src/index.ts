@@ -1,4 +1,3 @@
-import 'promise-polyfill/src/polyfill';
 import 'unfetch/polyfill';
 import 'abortcontroller-polyfill';
 import { InitializeOptions, ResponseExtra, RequestInitExtra } from './types';
