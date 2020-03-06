@@ -46,6 +46,9 @@ export class $Response<T, K> {
         if (key === 'default') {
           return false;
         }
+        if (key === 'ok') {
+          return this.candidate.ok;
+        }
         return this.candidate.status === +key;
       });
       if (reaction) {
