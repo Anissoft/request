@@ -1,12 +1,10 @@
-import { fetch as fetchPolyfill } from 'whatwg-fetch';
-
 import { InitializeOptions, ResponseExtra, RequestInitExtra } from './types';
 import { $Request } from './request';
 import { $Response } from './response';
 
-let __sendRequest = fetch;
+let __sendRequest: typeof fetch;
 
-export const initialize = (original: typeof fetch = fetch, options?: InitializeOptions) => {
+export const initialize = (original: typeof fetch, options?: InitializeOptions) => {
   __sendRequest = original;
 };
 
@@ -14,6 +12,9 @@ export async function request<T = any, K = any>(
   input: RequestInfo,
   init: RequestInitExtra<T, K> = {},
 ): Promise<ResponseExtra<T> | K> {
+  if (!__sendRequest) {
+    throw new Error('Please initialize request first');
+  }
   const requsetExtra = new $Request(input, init, __sendRequest);
   await requsetExtra.parseBody();
 
