@@ -8,10 +8,10 @@ export const initialize = (original: typeof fetch = window.fetch, options?: Init
   __sendRequest = original;
 };
 
-export async function request<T = any>(
+export async function request<T = any, K = any>(
   input: RequestInfo,
-  init: RequestInitExtra<T> = {},
-): Promise<ResponseExtra<T>> {
+  init: RequestInitExtra<T, K> = {},
+): Promise<ResponseExtra<T, K>> {
   const requsetExtra = new $Request(input, init, __sendRequest);
   requsetExtra.parseBody();
 

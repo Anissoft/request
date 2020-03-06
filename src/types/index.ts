@@ -1,11 +1,11 @@
 export type InitializeOptions = {};
 
-export type ResponseExtra<T> = {
+export type ResponseExtra<T, K> = {
   json(): T | undefined;
   text(): string;
 } & Response;
 
-export type RequestInitExtra<T> = {
+export type RequestInitExtra<T, K> = {
   body?:
     | Blob
     | BufferSource
@@ -13,7 +13,8 @@ export type RequestInitExtra<T> = {
     | URLSearchParams
     | ReadableStream<Uint8Array>
     | string
-    | object;
-  isOk?: (response: ResponseExtra<T>) => boolean;
+    | Record<string | number, any>;
+  isOk?: (response: ResponseExtra<T, K>) => boolean;
   shouldThrow?: boolean;
+  actions?: Record<string | number, (response: ResponseExtra<T, K>) => Promise<any>>;
 } & RequestInit;

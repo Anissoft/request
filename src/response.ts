@@ -1,9 +1,10 @@
 import { ResponseExtra, RequestInitExtra } from './types';
 
-export class $Response<T> {
-  private candidate: ResponseExtra<T>;
-  constructor(private response: Response, private init: RequestInitExtra<T>) {
-    this.candidate = new Response(undefined, this.response) as ResponseExtra<T>;
+export class $Response<T, K> {
+  private candidate: ResponseExtra<T, K>;
+
+  constructor(private response: Response, private init: RequestInitExtra<T, K>) {
+    this.candidate = new Response(undefined, this.response) as ResponseExtra<T, K>;
   }
 
   public parseBody = async () => {
@@ -23,7 +24,7 @@ export class $Response<T> {
       text() {
         return text;
       },
-    }) as ResponseExtra<T>;
+    }) as ResponseExtra<T, K>;
   };
 
   public defineOk = () => {
@@ -36,6 +37,26 @@ export class $Response<T> {
   };
 
   public flush = () => {
+    if (this.init?.actions) {
+      const reaction = Object.entries(this.init?.actions).find(([key, action]) => {
+        if (typeof key === 'string' && /\d{3}\-\d{3}/) {
+          const [start, end] = key.split('-');
+          return this.candidate.status >= +start && this.candidate.status <= +end;
+        }
+        if (key === 'default') {
+          return false;
+        }
+        return this.candidate.status === +key;
+      });
+      if (reaction) {
+        return reaction[1](this.candidate);
+      }
+
+      const defaultReaction = Object.entries(this.init?.actions).find(([key]) => key === 'default');
+      if (defaultReaction) {
+        return defaultReaction[1](this.candidate);
+      }
+    }
     if (this.init?.shouldThrow && !this.candidate.ok) {
       return Promise.reject(this.candidate);
     }

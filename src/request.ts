@@ -1,9 +1,9 @@
 import { RequestInitExtra } from './types';
 
-export class $Request<T> {
+export class $Request<T, K> {
   constructor(
     private input: RequestInfo,
-    private init: RequestInitExtra<T> = {},
+    private init: RequestInitExtra<T, K> = {},
     private originalFetch: typeof fetch,
   ) {}
 
