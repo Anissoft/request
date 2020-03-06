@@ -28,8 +28,7 @@ export class $Request<T, K> {
       if (headers instanceof Headers) {
         hasContentType = !!headers.get('Content-Type') || !!headers.get('content-type');
       } else if (Array.isArray(headers)) {
-        hasContentType =
-          headers.filter(([name]) => ['content-type', 'Content-Type'].includes(name)).length > 0;
+        hasContentType = headers.some(([name]) => ['content-type', 'Content-Type'].includes(name));
       } else {
         hasContentType = !!headers['Content-Type'] || !!headers['content-type'];
       }
