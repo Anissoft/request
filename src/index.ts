@@ -1,5 +1,3 @@
-import 'unfetch/polyfill';
-import 'abortcontroller-polyfill';
 import { InitializeOptions, ResponseExtra, RequestInitExtra } from './types';
 import { $Request } from './request';
 import { $Response } from './response';
