@@ -1,10 +1,12 @@
+import { fetch as fetchPolyfill } from 'whatwg-fetch';
+
 import { InitializeOptions, ResponseExtra, RequestInitExtra } from './types';
 import { $Request } from './request';
 import { $Response } from './response';
 
-let __sendRequest = typeof window === 'undefined' ? (global as any).fetch : window.fetch;
+let __sendRequest = fetch;
 
-export const initialize = (original: typeof fetch = window.fetch, options?: InitializeOptions) => {
+export const initialize = (original: typeof fetch = fetch, options?: InitializeOptions) => {
   __sendRequest = original;
 };
 
