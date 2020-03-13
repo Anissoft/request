@@ -39,15 +39,15 @@ export class $Response<T, K> {
   public flush = () => {
     if (this.init?.actions) {
       const reaction = Object.entries(this.init?.actions).find(([key, action]) => {
-        if (typeof key === 'string' && /\d{3}\-\d{3}/) {
-          const [start, end] = key.split('-');
-          return this.candidate.status >= +start && this.candidate.status <= +end;
-        }
         if (key === 'default') {
           return false;
         }
         if (key === 'ok') {
           return this.candidate.ok;
+        }
+        if (typeof key === 'string' && /\d{3}\-\d{3}/) {
+          const [start, end] = key.split('-');
+          return this.candidate.status >= +start && this.candidate.status <= +end;
         }
         return this.candidate.status === +key;
       });
