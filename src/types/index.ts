@@ -1,4 +1,6 @@
-export type InitializeOptions = {};
+export type InitializeOptions = {
+  headers?: Record<string, string>;
+};
 
 export type ResponseExtra<T> = {
   json(): T | undefined;

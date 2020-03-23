@@ -7,6 +7,20 @@ export class $Request<T, K> {
     private originalFetch: typeof fetch,
   ) {}
 
+  public setHeaders = (headers: Record<string, string>) => {
+    Object.entries(headers).forEach(([key, value]) => {
+      if (!this.init.headers) {
+        this.init.headers = { [key]: value };
+      } else if (this.init.headers instanceof Headers) {
+        this.init.headers.set(key, value);
+      } else if (Array.isArray(this.init.headers)) {
+        this.init.headers.push([key, value]);
+      } else {
+        this.init.headers[key] = value;
+      }
+    });
+  };
+
   public parseBody = () => {
     const { headers, body } = this.init;
     if (
@@ -35,19 +49,11 @@ export class $Request<T, K> {
         hasContentType = !!headers['Content-Type'] || !!headers['content-type'];
       }
     } else {
-      this.init.headers = {
-        'Content-type': 'application/json',
-      };
+      this.setHeaders({ 'Content-Type': 'application/json' });
       return;
     }
     if (!hasContentType) {
-      if (headers instanceof Headers) {
-        headers.set('Content-Type', 'application/json');
-      } else if (Array.isArray(headers)) {
-        headers.push(['Content-Type', 'application/json']);
-      } else {
-        headers['Content-type'] = 'application/json';
-      }
+      this.setHeaders({ 'Content-Type': 'application/json' });
     }
   };
 
