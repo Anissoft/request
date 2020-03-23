@@ -16,7 +16,7 @@ export class $Request<T, K> {
       body instanceof Blob ||
       body instanceof FormData ||
       body instanceof URLSearchParams ||
-      body instanceof ReadableStream
+      (typeof ReadableStream !== 'undefined' && body instanceof ReadableStream)
     ) {
       return;
     }
