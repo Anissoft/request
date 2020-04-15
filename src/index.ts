@@ -30,6 +30,7 @@ export async function request<T = any, K = any>(
   return responseExtra.flush();
 }
 
+export * from './helpers';
 export * from './types';
 
 export default request;

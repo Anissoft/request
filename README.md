@@ -102,10 +102,23 @@ request('https://example.com/api/method', {
 .json() and .text() methods contains preparsed data and can be executed synchronous multiple times:
 
 ```typescript
-const response request('https://example.com/api/method');
+const response = request('https://example.com/api/method');
 
 console.log(response.text());
 console.log(response.json());
+```
+
+## Helpers
+
+#### getParameterByName(name: string[, url: string])
+
+Returns the last value of query parameter from given url. If no url specified - will use global location.href from browser, or qmpty string in nodeJs.
+
+```typescript
+const { getParameterByName } = require('@anissoft/request');
+
+const search = getParameterByName('search', 'https://example.com/api/method?search=123');
+console.log(search); // '123';
 ```
 
 ## Author
