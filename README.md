@@ -5,7 +5,7 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/Anissoft/request/graphs/commit-activity)
 [![License: ISC](https://img.shields.io/github/license/Anissoft/request)](https://github.com/Anissoft/request/blob/master/LICENSE)
 
-> Wrap on top of the standart fetch API with few tweaks, which make may life easier (abort request, polyfills, OKdetermination etc)
+> Wrap on top of the standart fetch API with few tweaks, which make may life easier
 
 ## Usage
 
