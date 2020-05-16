@@ -132,9 +132,3 @@ console.log(search); // '123';
 Contributions, issues and feature requests are welcome!
 
 Feel free to check [issues page](https://github.com/Anissoft/request/issues). You can also take a look at the [contributing guide](https://github.com/Anissoft/request/blob/master/CONTRIBUTING.md).
-
-## 📝 License
-
-Copyright © 2020 [alexey.anisimov https://github.com/Anissoft](https://github.com/Anissoft).
-
-This project is [ISC](https://github.com/Anissoft/request/blob/master/LICENSE) licensed.
