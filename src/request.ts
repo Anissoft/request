@@ -57,5 +57,13 @@ export class $Request<T, K> {
     }
   };
 
-  public flush = () => this.originalFetch(this.input, this.init);
+  public flush = () =>
+    this.originalFetch(this.input, this.init).catch((error: Error) => {
+      if (this.init.onNetworkError) {
+        this.init.onNetworkError(error);
+      } else if (this.init.actions?.network) {
+        this.init.actions.network(error);
+      }
+      throw error;
+    });
 }

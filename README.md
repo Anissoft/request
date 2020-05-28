@@ -108,6 +108,37 @@ console.log(response.text());
 console.log(response.json());
 ```
 
+#### `actions` object
+
+You can assign actions for specific status codes, or general events:
+
+```typescript
+request('https://example.com/api/method', {
+  method: 'POST',
+  isOk: ({ status, ok }) => ok || status === 429,
+  actions: {
+    ok: response => {
+      console.log('Executes if response.ok === true, or if isOk() returns true');
+    },
+    '403': response => {
+      console.log('Executes if response.status === 403');
+    },
+    '401,402': response => {
+      console.log('Executes if response.status is 401 or 402');
+    },
+    '500-516': response => {
+      console.log('Executes if response.status >= 500 and response.status <= 516');
+    },
+    network: response => {
+      console.log('Executes network exception was thrown');
+    },
+    default: response => {
+      console.log('Executes in all other cases');
+    },
+  },
+});
+```
+
 ## Helpers
 
 #### getParameterByName(name: string[, url: string])

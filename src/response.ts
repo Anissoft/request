@@ -40,6 +40,9 @@ export class $Response<T, K> {
     if (this.init?.actions) {
       const [key, action] =
         Object.entries(this.init?.actions).find(([key]) => {
+          if (key === 'network') {
+            return false;
+          }
           if (key === 'default') {
             return false;
           }
@@ -49,9 +52,13 @@ export class $Response<T, K> {
           if (key === 'fail') {
             return !this.candidate.ok;
           }
-          if (typeof key === 'string' && /\d{3}\-\d{3}/) {
+          if (typeof key === 'string' && /^\d{3}\-\d{3}$/) {
             const [start, end] = key.split('-');
             return this.candidate.status >= +start && this.candidate.status <= +end;
+          }
+          if (typeof key === 'string' && /^(\d{3},+)+\d{3}$/) {
+            const codes = key.split(',');
+            return codes.includes(`${this.candidate.status}`);
           }
           return this.candidate.status === +key;
         }) || [];

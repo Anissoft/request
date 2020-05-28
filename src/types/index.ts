@@ -18,8 +18,9 @@ export type RequestInitExtra<T, K> = {
     | Record<string | number, any>;
   isOk?: (response: ResponseExtra<T>) => boolean;
   shouldThrow?: boolean;
+  onNetworkError?: (error: Error) => void;
   actions?: Record<
     'default' | 'ok' | string | number,
     (response: ResponseExtra<T>) => Promise<K> | K
-  >;
+  > & { network: (error: Error) => void };
 } & Omit<RequestInit, 'body'>;
