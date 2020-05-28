@@ -20,10 +20,10 @@ export type RequestInitExtra<T, K> = {
   shouldThrow?: boolean;
   onNetworkError?: (error: Error) => void;
   actions?: {
-    default: (response: ResponseExtra<T>) => Promise<K> | K;
-    ok: (response: ResponseExtra<T>) => Promise<K> | K;
-    network: () => Promise<K> | K;
-    [statuses: string]: (response: ResponseExtra<T>) => Promise<K> | K;
-    [status: number]: (response: ResponseExtra<T>) => Promise<K> | K;
+    default?: (response: ResponseExtra<T>) => Promise<K> | K;
+    ok?: (response: ResponseExtra<T>) => Promise<K> | K;
+    network?: () => Promise<K> | K;
+    [statuses: string]: ((response: ResponseExtra<T>) => Promise<K> | K) | undefined;
+    [status: number]: ((response: ResponseExtra<T>) => Promise<K> | K) | undefined;
   };
 } & Omit<RequestInit, 'body'>;
