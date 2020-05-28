@@ -22,8 +22,8 @@ export type RequestInitExtra<T, K> = {
   actions?: {
     default: (response: ResponseExtra<T>) => Promise<K> | K;
     ok: (response: ResponseExtra<T>) => Promise<K> | K;
-    network: (error: Error) => void;
-    [statuses: string]: ((response: ResponseExtra<T>) => Promise<K> | K) | ((error: Error) => void);
+    network: () => Promise<K> | K;
+    [statuses: string]: (response: ResponseExtra<T>) => Promise<K> | K;
     [status: number]: (response: ResponseExtra<T>) => Promise<K> | K;
   };
 } & Omit<RequestInit, 'body'>;

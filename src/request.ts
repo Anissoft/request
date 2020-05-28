@@ -62,7 +62,7 @@ export class $Request<T, K> {
       if (this.init.onNetworkError) {
         this.init.onNetworkError(error);
       } else if (this.init.actions?.network) {
-        this.init.actions.network(error);
+        this.init.actions.network();
       }
       throw error;
     });
