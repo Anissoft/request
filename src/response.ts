@@ -63,13 +63,13 @@ export class $Response<T, K> {
           return this.candidate.status === +key;
         }) || [];
       if (action) {
-        return action(this.candidate);
+        return (action as (response: ResponseExtra<T>) => K | Promise<K>)(this.candidate);
       }
 
       const [, defautAction] =
         Object.entries(this.init?.actions).find(([key]) => key === 'default') || [];
       if (defautAction) {
-        return defautAction(this.candidate);
+        return (defautAction as (response: ResponseExtra<T>) => K | Promise<K>)(this.candidate);
       }
     }
     if (this.init?.shouldThrow && !this.candidate.ok) {
