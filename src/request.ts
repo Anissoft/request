@@ -11,12 +11,12 @@ export class $Request<T, K> {
     Object.entries(headers).forEach(([key, value]) => {
       if (!this.init.headers) {
         this.init.headers = { [key]: value };
-      } else if (this.init.headers instanceof Headers) {
+      } else if (typeof Headers !== 'undefined' && this.init.headers instanceof Headers) {
         this.init.headers.set(key, value);
       } else if (Array.isArray(this.init.headers)) {
         this.init.headers.push([key, value]);
       } else {
-        this.init.headers[key] = value;
+        (this.init.headers as Record<string,string>)[key] = value;
       }
     });
   };
@@ -58,7 +58,7 @@ export class $Request<T, K> {
   };
 
   public flush = () =>
-    this.originalFetch(this.input, this.init).catch((error: Error) => {
+    this.originalFetch(this.input, this.init as RequestInit).catch((error: Error) => {
       if (this.init.onNetworkError) {
         this.init.onNetworkError(error);
       } else if (this.init.actions?.network) {
