@@ -4,7 +4,11 @@ export class $Response<T, K> {
   private candidate: ResponseExtra<T>;
 
   constructor(private response: Response, private init: RequestInitExtra<T, K>) {
-    this.candidate = new Response(undefined, this.response) as ResponseExtra<T>;
+    if (typeof Response !== 'undefined') {
+      this.candidate = new Response(undefined, this.response) as ResponseExtra<T>;
+    } else {
+      this.candidate = { ...{}, ...this.response } as ResponseExtra<T>;
+    }
   }
 
   public parseBody = async () => {

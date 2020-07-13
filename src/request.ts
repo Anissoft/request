@@ -16,7 +16,7 @@ export class $Request<T, K> {
       } else if (Array.isArray(this.init.headers)) {
         this.init.headers.push([key, value]);
       } else {
-        (this.init.headers as Record<string,string>)[key] = value;
+        (this.init.headers as Record<string, string>)[key] = value;
       }
     });
   };
@@ -29,7 +29,7 @@ export class $Request<T, K> {
       body instanceof String ||
       body instanceof Blob ||
       body instanceof FormData ||
-      body instanceof URLSearchParams ||
+      (typeof URLSearchParams !== 'undefined' && body instanceof URLSearchParams) ||
       (typeof ReadableStream !== 'undefined' && body instanceof ReadableStream)
     ) {
       return;
@@ -41,12 +41,14 @@ export class $Request<T, K> {
     }
     let hasContentType = false;
     if (headers) {
-      if (headers instanceof Headers) {
+      if (typeof Headers !== 'undefined' && headers instanceof Headers) {
         hasContentType = !!headers.get('Content-Type') || !!headers.get('content-type');
       } else if (Array.isArray(headers)) {
         hasContentType = headers.some(([name]) => ['content-type', 'Content-Type'].includes(name));
       } else {
-        hasContentType = !!headers['Content-Type'] || !!headers['content-type'];
+        hasContentType =
+          !!(headers as Record<string, string>)['Content-Type'] ||
+          !!(headers as Record<string, string>)['content-type'];
       }
     } else {
       this.setHeaders({ 'Content-Type': 'application/json' });
