@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "lib": [
+      "es2015",
+      "DOM"
+    ],
     "strict": true,
     "module": "CommonJS",
     "allowSyntheticDefaultImports": true,
@@ -11,7 +15,10 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*", "src/types/*"]
+      "*": [
+        "node_modules/*",
+        "src/types/*"
+      ]
     }
   }
 }
