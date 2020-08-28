@@ -1,9 +1,9 @@
 import { ResponseExtra, RequestInitExtra } from './types';
 
-export class $Response<T, K> {
+export class $Response<T> {
   private candidate: ResponseExtra<T>;
 
-  constructor(private response: Response, private init: RequestInitExtra<T, K>) {
+  constructor(private response: Response, private init: RequestInitExtra<T>) {
     if (typeof Response !== 'undefined') {
       this.candidate = new Response(undefined, this.response) as ResponseExtra<T>;
     } else {
@@ -66,14 +66,15 @@ export class $Response<T, K> {
           }
           return this.candidate.status === +key;
         }) || [];
+
       if (action) {
-        return (action as (response: ResponseExtra<T>) => K | Promise<K>)(this.candidate);
+        action(this.candidate);
       }
 
       const [, defautAction] =
         Object.entries(this.init?.actions).find(([key]) => key === 'default') || [];
       if (defautAction) {
-        return (defautAction as (response: ResponseExtra<T>) => K | Promise<K>)(this.candidate);
+        defautAction(this.candidate);
       }
     }
     if (this.init?.shouldThrow && !this.candidate.ok) {
