@@ -1,11 +1,11 @@
 import { RequestInitExtra } from './types';
 
-export class $Request<T, K> {
+export class $Request<T> {
   constructor(
     private input: RequestInfo,
-    private init: RequestInitExtra<T, K> = {},
+    private init: RequestInitExtra<T> = {},
     private originalFetch: typeof fetch,
-  ) {}
+  ) { }
 
   public setHeaders = (headers: Record<string, string>) => {
     Object.entries(headers).forEach(([key, value]) => {

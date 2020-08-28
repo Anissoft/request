@@ -12,26 +12,26 @@
 npm install @anissoft/request
 ```
 
-In code you just need to intitalize request in the index script:
+In code you just need to intitalize and export request function:
 
 ```typescript
+// request.ts
 import { initialize } from '@anissoft/request';
-initialize(fetch, options);
+export const request = initialize(fetch, options);
 ```
 
-After it you can import and use request methods:
+After it you can import and use it:
 
 ```typescript
-import request from '@anissoft/request';
-...
+import request from '../request';
 
 (async () => {
   try {
     const response1 = await request('https://example.com/api/method', {
-        method: 'POST',
-        body: { foo: 'bar' },
-        isOk: ({ status }) => status < 400,
-        shouldThrow: true,
+      method: 'POST',
+      body: { foo: 'bar' },
+      isOk: ({ status }) => status < 400,
+      shouldThrow: true,
     });
     console.log('Response body:', response1.text());
     console.log('Parsed json:', response1.json());
