@@ -35,7 +35,7 @@ import request from '../request';
     });
     console.log('Response body:', response1.text());
     console.log('Parsed json:', response1.json());
-  } catch(response1) {
+  } catch (response1) {
     console.error(response1.statusText);
   }
 
@@ -53,12 +53,12 @@ import request from '../request';
     const text = await response2.text();
     console.log('Response body:', text);
     try {
-      console.log('Parsed json:',JSON.parse(text));
-    } catch(e) {
+      console.log('Parsed json:', JSON.parse(text));
+    } catch (e) {
       console.log('Parsed json:', undefined);
     }
   }
-})()
+})();
 ```
 
 ## Features
@@ -80,9 +80,26 @@ If `shouldThrow` set true in RequestInit - request will be rejected if response.
 ```typescript
 request('https://example.com/api/method', {
   shouldThrow: true,
-}).catch(response => {
+}).catch((response) => {
   console.log(response.status);
 });
+```
+
+#### useCache
+
+You can specify lifetime for a local cache of GET requests:
+
+```typescript
+const makeRequest = () =>
+  request('https://example.com/api/method', {
+    method: 'GET',
+    useCache: 1000 * 30,
+  });
+
+const resp1 = await makeRequest();
+setTimeout(() => {
+  const resp2 = await makeRequest();
+}, 1000 * 15);
 ```
 
 #### Stringify object-like body
@@ -94,6 +111,7 @@ request('https://example.com/api/method', {
   method: 'POST',
   body: { foo: 'bar' },
 });
+}, 1000 * 15);
 ```
 
 #### Sync .json() and .text() methods
@@ -116,22 +134,22 @@ request('https://example.com/api/method', {
   method: 'POST',
   isOk: ({ status, ok }) => ok || status === 429,
   actions: {
-    ok: response => {
+    ok: (response) => {
       console.log('Executes if response.ok === true, or if isOk() returns true');
     },
-    '403': response => {
+    '403': (response) => {
       console.log('Executes if response.status === 403');
     },
-    '401,402': response => {
+    '401,402': (response) => {
       console.log('Executes if response.status is 401 or 402');
     },
-    '500-516': response => {
+    '500-516': (response) => {
       console.log('Executes if response.status >= 500 and response.status <= 516');
     },
-    network: response => {
+    network: (response) => {
       console.log('Executes network exception was thrown');
     },
-    default: response => {
+    default: (response) => {
       console.log('Executes in all other cases');
     },
   },

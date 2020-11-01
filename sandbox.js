@@ -1,13 +1,13 @@
-import { initialize, request } from './dist';
+import { initialize } from './dist';
 
-window.$ = { initialize, request };
+window.$ = initialize(fetch.bind(null));
 
-initialize(fetch);
-
-$.request('/', {
-  isOk(res) {
-    return false;
-  },
-}).then(res => {
-  console.log(res);
-});
+window
+  .$('/', {
+    isOk(res) {
+      return false;
+    },
+  })
+  .then((res) => {
+    console.log(res);
+  });
