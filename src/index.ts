@@ -10,7 +10,6 @@ export const initialize = (original: typeof fetch, options: InitializeOptions = 
     init: RequestInitExtra<T> = {},
   ): Promise<ResponseExtra<T>> => {
     const cachedResponse = cache.get(input, init);
-    console.log(cachedResponse);
     if (cachedResponse) {
       return cachedResponse;
     }
