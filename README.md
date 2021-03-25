@@ -1,3 +1,6 @@
+## [DEPRECATED] 
+### Note that this repo has been moved to [js-libs](https://github.com/Anissoft/js-libs) as [@anissoft/request](https://github.com/Anissoft/js-libs/tree/master/packages/request) package.
+
 # Welcome to request 👋
 
 [![Version](https://img.shields.io/npm/v/request.svg)](https://www.npmjs.com/package/request)
